@@ -46,8 +46,8 @@ src/
 
 You can use the toolbar as a module in your project:
 
-```js
-import { UserBirdToolbar } from './dist/userbird-toolbar.es.js';
+```js as ES module
+import UserBirdToolbar from './dist/userbird-toolbar.es.js';
 
 const toolbar = new UserBirdToolbar({
   siteId: 'your-site-id',
