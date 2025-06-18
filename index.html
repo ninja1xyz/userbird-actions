@@ -6,15 +6,16 @@
     <title>Testing</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='index.js'></script>
-    <script>
-        var key = {
-            siteId : "eKBcpbcg", 
-            workspaceId: "HRkSTkZF", 
-        }
-        const toolbar = new UserBirdToolbar(key);
-        toolbar.init();
-    </script>
+     <script type="module">
+    import { UserBirdToolbar } from 'https://exquisite-seahorse-3a770e.netlify.app/dist/userbird-toolbar.es.js';
+
+    const toolbar = new UserBirdToolbar({
+      siteId: 'site123',
+      workspaceId: 'workspace456'
+    });
+
+    toolbar.init();
+  </script>
 </head>
 <body>
     

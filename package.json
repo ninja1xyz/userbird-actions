@@ -1,0 +1,23 @@
+{
+  "name": "userbird-actions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ninja1xyz/userbird-actions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ninja1xyz/userbird-actions/issues"
+  },
+  "homepage": "https://github.com/ninja1xyz/userbird-actions#readme",
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
