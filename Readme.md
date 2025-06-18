@@ -44,9 +44,9 @@ src/
 
 ### Usage
 
-You can use the toolbar as a module in your project:
+You can use the toolbar as ES module in your project:
 
-```js as ES module
+```js 
 import UserBirdToolbar from './dist/userbird-toolbar.es.js';
 
 const toolbar = new UserBirdToolbar({
@@ -74,10 +74,6 @@ Or, include it directly in your HTML:
 ### Configuration
 
 Edit [`src/config/config.js`](src/config/config.js) to set environment, API URLs, and domain.
-
-## License
-
-[ISC](LICENSE)
 
 ## Issues
 
