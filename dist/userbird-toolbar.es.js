@@ -1,4 +1,4 @@
-const l = (e) => `<svg id="Layer_1" href="${e}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
+const R = (c) => `<svg id="Layer_1" href="${c}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
   <defs>
     <style>
       .st0 {
@@ -33,25 +33,223 @@ const l = (e) => `<svg id="Layer_1" href="${e}" xmlns="http://www.w3.org/2000/sv
     <path class="st3" d="M56.84,56.84h20.48c10.76,0,19.57-8.81,19.57-19.57v-20.48l-40.05,40.05Z"/>
     <path class="st1" d="M96.89,96.87v-20.47c0-10.76-8.81-19.57-19.57-19.57h-20.48l40.05,40.04Z"/>
   </g>
-</svg>`, c = {
-  environment: "staging",
-  url: "https://www.staging-api.userbird.com",
-  domain: "userbird.com"
+</svg>`;
+function Y(c) {
+  return c && c.__esModule && Object.prototype.hasOwnProperty.call(c, "default") ? c.default : c;
+}
+function U(c) {
+  if (Object.prototype.hasOwnProperty.call(c, "__esModule")) return c;
+  var l = c.default;
+  if (typeof l == "function") {
+    var f = function d() {
+      return this instanceof d ? Reflect.construct(l, arguments, this.constructor) : l.apply(this, arguments);
+    };
+    f.prototype = l.prototype;
+  } else f = {};
+  return Object.defineProperty(f, "__esModule", { value: !0 }), Object.keys(c).forEach(function(d) {
+    var y = Object.getOwnPropertyDescriptor(c, d);
+    Object.defineProperty(f, d, y.get ? y : {
+      enumerable: !0,
+      get: function() {
+        return c[d];
+      }
+    });
+  }), f;
+}
+var p = { exports: {} };
+const K = {}, P = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: K
+}, Symbol.toStringTag, { value: "Module" })), _ = /* @__PURE__ */ U(P), S = "16.5.0", j = {
+  version: S
 };
-class h {
-  constructor({ siteId: t, workspaceId: o }) {
-    this.siteId = t, this.workspaceId = o, this.logoSvg = null, this.apiToken = null, this.toolbar = null, this.logoRender = null, this.config = null;
+var O;
+function B() {
+  if (O) return p.exports;
+  O = 1;
+  const c = _, l = _, f = _, d = _, m = j.version, g = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
+  function D(e) {
+    const o = {};
+    let r = e.toString();
+    r = r.replace(/\r\n?/mg, `
+`);
+    let s;
+    for (; (s = g.exec(r)) != null; ) {
+      const u = s[1];
+      let t = s[2] || "";
+      t = t.trim();
+      const n = t[0];
+      t = t.replace(/^(['"`])([\s\S]*)\1$/mg, "$2"), n === '"' && (t = t.replace(/\\n/g, `
+`), t = t.replace(/\\r/g, "\r")), o[u] = t;
+    }
+    return o;
+  }
+  function x(e) {
+    const o = T(e), r = i.configDotenv({ path: o });
+    if (!r.parsed) {
+      const n = new Error(`MISSING_DATA: Cannot parse ${o} for an unknown reason`);
+      throw n.code = "MISSING_DATA", n;
+    }
+    const s = w(e).split(","), u = s.length;
+    let t;
+    for (let n = 0; n < u; n++)
+      try {
+        const a = s[n].trim(), h = V(r, a);
+        t = i.decrypt(h.ciphertext, h.key);
+        break;
+      } catch (a) {
+        if (n + 1 >= u)
+          throw a;
+      }
+    return i.parse(t);
+  }
+  function I(e) {
+    console.log(`[dotenv@${m}][WARN] ${e}`);
+  }
+  function E(e) {
+    console.log(`[dotenv@${m}][DEBUG] ${e}`);
+  }
+  function w(e) {
+    return e && e.DOTENV_KEY && e.DOTENV_KEY.length > 0 ? e.DOTENV_KEY : process.env.DOTENV_KEY && process.env.DOTENV_KEY.length > 0 ? process.env.DOTENV_KEY : "";
+  }
+  function V(e, o) {
+    let r;
+    try {
+      r = new URL(o);
+    } catch (a) {
+      if (a.code === "ERR_INVALID_URL") {
+        const h = new Error("INVALID_DOTENV_KEY: Wrong format. Must be in valid uri format like dotenv://:key_1234@dotenvx.com/vault/.env.vault?environment=development");
+        throw h.code = "INVALID_DOTENV_KEY", h;
+      }
+      throw a;
+    }
+    const s = r.password;
+    if (!s) {
+      const a = new Error("INVALID_DOTENV_KEY: Missing key part");
+      throw a.code = "INVALID_DOTENV_KEY", a;
+    }
+    const u = r.searchParams.get("environment");
+    if (!u) {
+      const a = new Error("INVALID_DOTENV_KEY: Missing environment part");
+      throw a.code = "INVALID_DOTENV_KEY", a;
+    }
+    const t = `DOTENV_VAULT_${u.toUpperCase()}`, n = e.parsed[t];
+    if (!n) {
+      const a = new Error(`NOT_FOUND_DOTENV_ENVIRONMENT: Cannot locate environment ${t} in your .env.vault file.`);
+      throw a.code = "NOT_FOUND_DOTENV_ENVIRONMENT", a;
+    }
+    return { ciphertext: n, key: s };
+  }
+  function T(e) {
+    let o = null;
+    if (e && e.path && e.path.length > 0)
+      if (Array.isArray(e.path))
+        for (const r of e.path)
+          c.existsSync(r) && (o = r.endsWith(".vault") ? r : `${r}.vault`);
+      else
+        o = e.path.endsWith(".vault") ? e.path : `${e.path}.vault`;
+    else
+      o = l.resolve(process.cwd(), ".env.vault");
+    return c.existsSync(o) ? o : null;
+  }
+  function N(e) {
+    return e[0] === "~" ? l.join(f.homedir(), e.slice(1)) : e;
+  }
+  function $(e) {
+    !!(e && e.debug) && E("Loading env from encrypted .env.vault");
+    const r = i._parseVault(e);
+    let s = process.env;
+    return e && e.processEnv != null && (s = e.processEnv), i.populate(s, r, e), { parsed: r };
+  }
+  function k(e) {
+    const o = l.resolve(process.cwd(), ".env");
+    let r = "utf8";
+    const s = !!(e && e.debug);
+    e && e.encoding ? r = e.encoding : s && E("No encoding is specified. UTF-8 is used by default");
+    let u = [o];
+    if (e && e.path)
+      if (!Array.isArray(e.path))
+        u = [N(e.path)];
+      else {
+        u = [];
+        for (const h of e.path)
+          u.push(N(h));
+      }
+    let t;
+    const n = {};
+    for (const h of u)
+      try {
+        const v = i.parse(c.readFileSync(h, { encoding: r }));
+        i.populate(n, v, e);
+      } catch (v) {
+        s && E(`Failed to load ${h} ${v.message}`), t = v;
+      }
+    let a = process.env;
+    return e && e.processEnv != null && (a = e.processEnv), i.populate(a, n, e), t ? { parsed: n, error: t } : { parsed: n };
+  }
+  function A(e) {
+    if (w(e).length === 0)
+      return i.configDotenv(e);
+    const o = T(e);
+    return o ? i._configVault(e) : (I(`You set DOTENV_KEY but you are missing a .env.vault file at ${o}. Did you forget to build it?`), i.configDotenv(e));
+  }
+  function M(e, o) {
+    const r = Buffer.from(o.slice(-64), "hex");
+    let s = Buffer.from(e, "base64");
+    const u = s.subarray(0, 12), t = s.subarray(-16);
+    s = s.subarray(12, -16);
+    try {
+      const n = d.createDecipheriv("aes-256-gcm", r, u);
+      return n.setAuthTag(t), `${n.update(s)}${n.final()}`;
+    } catch (n) {
+      const a = n instanceof RangeError, h = n.message === "Invalid key length", v = n.message === "Unsupported state or unable to authenticate data";
+      if (a || h) {
+        const b = new Error("INVALID_DOTENV_KEY: It must be 64 characters long (or more)");
+        throw b.code = "INVALID_DOTENV_KEY", b;
+      } else if (v) {
+        const b = new Error("DECRYPTION_FAILED: Please check your DOTENV_KEY");
+        throw b.code = "DECRYPTION_FAILED", b;
+      } else
+        throw n;
+    }
+  }
+  function L(e, o, r = {}) {
+    const s = !!(r && r.debug), u = !!(r && r.override);
+    if (typeof o != "object") {
+      const t = new Error("OBJECT_REQUIRED: Please check the processEnv argument being passed to populate");
+      throw t.code = "OBJECT_REQUIRED", t;
+    }
+    for (const t of Object.keys(o))
+      Object.prototype.hasOwnProperty.call(e, t) ? (u === !0 && (e[t] = o[t]), s && E(u === !0 ? `"${t}" is already defined and WAS overwritten` : `"${t}" is already defined and was NOT overwritten`)) : e[t] = o[t];
+  }
+  const i = {
+    configDotenv: k,
+    _configVault: $,
+    _parseVault: x,
+    config: A,
+    decrypt: M,
+    parse: D,
+    populate: L
+  };
+  return p.exports.configDotenv = i.configDotenv, p.exports._configVault = i._configVault, p.exports._parseVault = i._parseVault, p.exports.config = i.config, p.exports.decrypt = i.decrypt, p.exports.parse = i.parse, p.exports.populate = i.populate, p.exports = i, p.exports;
+}
+var Z = B();
+const C = /* @__PURE__ */ Y(Z), F = C.config().parsed || {};
+class W {
+  constructor({ siteId: l, workspaceId: f }) {
+    this.siteId = l, this.workspaceId = f, this.logoSvg = null, this.apiToken = null, this.toolbar = null, this.logoRender = null, this.config = null;
   }
   async setupImports() {
-    this.config = c, this.logoSvg = l("www." + this.domain + "/");
+    this.config = F, this.logoSvg = R("www." + this.Domain + "/");
   }
   getApiTokenFromHash() {
     return new URLSearchParams(window.location.hash.substring(1)).get("birdAuth");
   }
   getApiUrl() {
-    return this.config.environment === "production" ? `https://api.${this.config.domain}/api/profile/` : `https://staging-api.${this.config.domain}/api/profile/`;
+    return this.config.Environment === "production" ? `https://api.${this.config.Domain}/api/profile/` : `https://staging-api.${this.config.Domain}/api/profile/`;
   }
   getSiteUrl() {
+    return this.config.environment === "production" ? `https://${this.config.Domain}/api/profile/` : `https://staging.${this.config.Domain}/api/profile/`;
   }
   async fetchProfile() {
     return (await fetch(this.getApiUrl(), {
@@ -75,7 +273,7 @@ class h {
       zIndex: "9999",
       cursor: "move"
     });
-    const t = `${this.getSiteUrl() || "http://localhost:5173"}/${this.workspaceId}/site/${this.siteId}`;
+    const l = `${this.getSiteUrl() || this.config.Localhost}/${this.workspaceId}/site/${this.siteId}`;
     this.toolbar.innerHTML = `
       <div style="display:flex;justify-content:space-around;align-items:center;">
         <a style="text-decoration:none;color:white;" target="_blank" rel="noopener noreferrer">
@@ -83,20 +281,20 @@ class h {
 `).join("")}
         </a>
         |
-        <a href="${t}" style="text-decoration:none;color:white;padding-top:5px;margin-left:10px;" target="_blank" rel="noopener noreferrer">
+        <a href="${l}" style="text-decoration:none;color:white;padding-top:5px;margin-left:10px;" target="_blank" rel="noopener noreferrer">
           Dashboard
         </a>
       </div>
     `, document.body.appendChild(this.toolbar), this.makeDraggable();
   }
   makeDraggable() {
-    this.toolbar.onmousedown = (t) => {
-      t.preventDefault();
-      const o = t.clientX - this.toolbar.getBoundingClientRect().left, n = t.clientY - this.toolbar.getBoundingClientRect().top, a = (s, r) => {
-        this.toolbar.style.left = s - o + "px", this.toolbar.style.top = r - n + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
-      }, i = (s) => a(s.clientX, s.clientY);
-      document.addEventListener("mousemove", i), document.onmouseup = () => {
-        document.removeEventListener("mousemove", i), document.onmouseup = null;
+    this.toolbar.onmousedown = (l) => {
+      l.preventDefault();
+      const f = l.clientX - this.toolbar.getBoundingClientRect().left, d = l.clientY - this.toolbar.getBoundingClientRect().top, y = (g, D) => {
+        this.toolbar.style.left = g - f + "px", this.toolbar.style.top = D - d + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
+      }, m = (g) => y(g.clientX, g.clientY);
+      document.addEventListener("mousemove", m), document.onmouseup = () => {
+        document.removeEventListener("mousemove", m), document.onmouseup = null;
       };
     }, this.toolbar.ondragstart = () => !1;
   }
@@ -107,6 +305,6 @@ class h {
   }
 }
 export {
-  h as UserBirdToolbar,
-  h as default
+  W as UserBirdToolbar,
+  W as default
 };

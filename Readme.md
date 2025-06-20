@@ -31,13 +31,8 @@ src/
    ```sh
    npm install
    ```
-
-2. **Run locally:**
-   ```sh
-   npm run dev
-   ```
-
-3. **Build for production:**
+   
+2. **Build for production:**
    ```sh
    npm run build
    ```

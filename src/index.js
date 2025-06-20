@@ -13,7 +13,7 @@ export class UserBirdToolbar {
 
   async setupImports() {
     this.config = config;
-    this.logoSvg = logoRender("www." + this.domain + "/");
+    this.logoSvg = logoRender("www." + this.Domain + "/");
   }
 
   getApiTokenFromHash() {
@@ -22,19 +22,19 @@ export class UserBirdToolbar {
   }
 
   getApiUrl() {
-    if (this.config.environment === "production") {
-      return `https://api.${this.config.domain}/api/profile/`;
+    if (this.config.Environment === "production") {
+      return `https://api.${this.config.Domain}/api/profile/`;
     } else {
-      return `https://staging-api.${this.config.domain}/api/profile/`;
+      return `https://staging-api.${this.config.Domain}/api/profile/`;
     }
   }
 
   getSiteUrl() {
-    // if (this.config.environment === "production") {
-    //   return `https://${this.config.domain}/api/profile/`;
-    // } else {
-    //   return `https://staging.${this.config.domain}/api/profile/`;
-    // }
+    if (this.config.environment === "production") {
+      return `https://${this.config.Domain}/api/profile/`;
+    } else {
+      return `https://staging.${this.config.Domain}/api/profile/`;
+    }
   }
 
   async fetchProfile() {
@@ -64,7 +64,7 @@ export class UserBirdToolbar {
       cursor: "move",
     });
 
-    const dashboardUrl = `${this.getSiteUrl() || "http://localhost:5173"}/${
+    const dashboardUrl = `${this.getSiteUrl() || this.config.Localhost}/${
       this.workspaceId
     }/site/${this.siteId}`;
     this.toolbar.innerHTML = `
