@@ -31,9 +31,9 @@ export class UserBirdToolbar {
 
   getSiteUrl() {
     if (this.config.environment === "production") {
-      return `https://${this.config.Domain}/api/profile/`;
+      return `https://${this.config.Domain}/`;
     } else {
-      return `https://staging.${this.config.Domain}/api/profile/`;
+      return `https://staging.${this.config.Domain}/`;
     }
   }
 
