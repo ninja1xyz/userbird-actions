@@ -57,7 +57,7 @@ class h {
     return this.config.Environment === "production" ? `https://api.${this.config.Domain}/api/profile/` : `https://staging-api.${this.config.Domain}/api/profile/`;
   }
   getSiteUrl() {
-    return this.config.environment === "production" ? `https://${this.config.Domain}/api/profile/` : `https://staging.${this.config.Domain}/api/profile/`;
+    return this.config.Environment === "production" ? `https://${this.config.Domain}/` : `https://staging.${this.config.Domain}/`;
   }
   async fetchProfile() {
     return (await fetch(this.getApiUrl(), {
@@ -81,7 +81,7 @@ class h {
       zIndex: "9999",
       cursor: "move"
     });
-    const t = `${this.getSiteUrl() || this.config.Localhost}/${this.workspaceId}/site/${this.siteId}`;
+    const t = `${this.config.Localhost + "/" || this.getSiteUrl()}${this.workspaceId}/site/${this.siteId}`;
     this.toolbar.innerHTML = `
       <div style="display:flex;justify-content:space-around;align-items:center;">
         <a style="text-decoration:none;color:white;" target="_blank" rel="noopener noreferrer">

@@ -30,7 +30,7 @@ export class UserBirdToolbar {
   }
 
   getSiteUrl() {
-    if (this.config.environment === "production") {
+    if (this.config.Environment === "production") {
       return `https://${this.config.Domain}/`;
     } else {
       return `https://staging.${this.config.Domain}/`;
@@ -64,7 +64,8 @@ export class UserBirdToolbar {
       cursor: "move",
     });
 
-    const dashboardUrl = `${this.getSiteUrl() || this.config.Localhost}/${
+    //reverse the conditional for production and staging
+    const dashboardUrl = `${this.config.Localhost+"/" || this.getSiteUrl()}${
       this.workspaceId
     }/site/${this.siteId}`;
     this.toolbar.innerHTML = `
