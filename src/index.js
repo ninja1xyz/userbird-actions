@@ -110,9 +110,20 @@ export class UserBirdToolbar {
     this.toolbar.ondragstart = () => false;
   }
 
+   bindEvent(window, cb) { 
+    window.addEventListener('message', 
+    (event) => {
+      if (event.origin !== 'http://localhost:5173') return; 
+      this.apiToken = JSON.parse(event.data).token;
+      console.log(event.data);
+      cb(this.apiToken);
+      event.source.postMessage({ type: 'RESPONSE', text: 'Authenticared!' },event.origin);
+        }
+      ) 
+    }
   async init() {
     this.setupImports().then(async () => {
-      this.apiToken = this.getApiTokenFromHash();
+      this.apiToken = this.apiToken || this.getApiTokenFromHash();
       console.log(this.apiToken);
       if (
         this.apiToken &&

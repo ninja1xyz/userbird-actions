@@ -1,4 +1,4 @@
-const l = (e) => `<svg id="Layer_1" href="${e}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
+const l = (i) => `<svg id="Layer_1" href="${i}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
   <defs>
     <style>
       .st0 {
@@ -41,7 +41,7 @@ const l = (e) => `<svg id="Layer_1" href="${e}" xmlns="http://www.w3.org/2000/sv
   LogoWidth: "24px",
   LogoHeight: "24px",
   LogoAlt: "UserBird Logo",
-  LocalHost: "http://localhost:5173"
+  Localhost: "http://localhost:5173"
 };
 class h {
   constructor({ siteId: t, workspaceId: s }) {
@@ -98,17 +98,25 @@ class h {
   makeDraggable() {
     this.toolbar.onmousedown = (t) => {
       t.preventDefault();
-      const s = t.clientX - this.toolbar.getBoundingClientRect().left, n = t.clientY - this.toolbar.getBoundingClientRect().top, a = (o, r) => {
-        this.toolbar.style.left = o - s + "px", this.toolbar.style.top = r - n + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
-      }, i = (o) => a(o.clientX, o.clientY);
-      document.addEventListener("mousemove", i), document.onmouseup = () => {
-        document.removeEventListener("mousemove", i), document.onmouseup = null;
+      const s = t.clientX - this.toolbar.getBoundingClientRect().left, o = t.clientY - this.toolbar.getBoundingClientRect().top, a = (e, r) => {
+        this.toolbar.style.left = e - s + "px", this.toolbar.style.top = r - o + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
+      }, n = (e) => a(e.clientX, e.clientY);
+      document.addEventListener("mousemove", n), document.onmouseup = () => {
+        document.removeEventListener("mousemove", n), document.onmouseup = null;
       };
     }, this.toolbar.ondragstart = () => !1;
   }
+  bindEvent(t, s) {
+    t.addEventListener(
+      "message",
+      (o) => {
+        o.origin === "http://localhost:5173" && (this.apiToken = JSON.parse(o.data).token, console.log(o.data), s(this.apiToken), o.source.postMessage({ type: "RESPONSE", text: "Authenticared!" }, o.origin));
+      }
+    );
+  }
   async init() {
     this.setupImports().then(async () => {
-      this.apiToken = this.getApiTokenFromHash(), console.log(this.apiToken), this.apiToken && this.siteId && this.workspaceId && await this.fetchProfile() ? this.createToolbar() : console.warn("UserBird Redirection Unauthenticated.");
+      this.apiToken = this.apiToken || this.getApiTokenFromHash(), console.log(this.apiToken), this.apiToken && this.siteId && this.workspaceId && await this.fetchProfile() ? this.createToolbar() : console.warn("UserBird Redirection Unauthenticated.");
     });
   }
 }

@@ -57,7 +57,7 @@ Or, include it directly in your HTML:
 ```html
 <script src="https://your-cdn.com/userbird-toolbar.umd.js"/>
 <script type="module">
-  const UserBirdToolbar = window.UserBirdToolbar
+  const { UserBirdToolbar } = window.UserBirdToolbar
   const toolbar = new UserBirdToolbar({
     siteId: 'site123',
     workspaceId: 'workspace456'

@@ -6,5 +6,5 @@ export const config = {
     LogoWidth: import.meta.env.VITE_LOGOWIDTH || "24px",
     LogoHeight: import.meta.env.VITE_LOGOHEIGHT || "24px",  
     LogoAlt: import.meta.env.VITE_LOGOALT || "UserBird Logo",
-    LocalHost: import.meta.env.VITE_LOCALHOST || "localhost:5173",
+    Localhost: import.meta.env.VITE_LOCALHOST || "localhost:5173",
 };
