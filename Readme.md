@@ -62,9 +62,8 @@ Add this to your HTML (in the `<head>` or before `</body>`):
 
 ## Configuration
 
-Edit [`src/config/config.js`](src/config/config.js) to set environment, API URLs, and domain.
+You should use a `.env` file to override Vite environment variables.
 
-You can also use a `.env` file to override Vite environment variables for local development.
 
 ## How It Works
 
