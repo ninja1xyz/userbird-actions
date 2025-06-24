@@ -1,9 +1,9 @@
 import { logoRender } from "./assets/logoRender.js";
 import { config } from "./config/config.js";
 export class UserBirdToolbar {
-  constructor({ siteId, workspaceId }) {
-    this.siteId = siteId;
-    this.workspaceId = workspaceId;
+  constructor() {
+    this.siteId = null;
+    this.workspaceId = null;
     this.logoSvg = null;
     this.apiToken = null;
     this.toolbar = null;
@@ -110,17 +110,24 @@ export class UserBirdToolbar {
     this.toolbar.ondragstart = () => false;
   }
 
-   bindEvent(window, cb) { 
+   bindEvent(window) { 
     window.addEventListener('message', 
     (event) => {
-      if (event.origin !== 'http://localhost:5173') return; 
-      this.apiToken = JSON.parse(event.data).token;
+      //if (event.origin !== 'http://localhost:5173') return; 
+      const key = JSON.parse(event.data);
       console.log(event.data);
-      cb(this.apiToken);
-      event.source.postMessage({ type: 'RESPONSE', text: 'Authenticared!' },event.origin);
+      this.cb(key);
+      event.source.postMessage({ type: 'RESPONSE', text: 'Authenticated!' },event.origin);
         }
       ) 
     }
+
+  cb = (key) => { 
+    this.apiToken = key.token;
+    this.siteId = key.siteId;
+    this.workspaceId = key.workspaceId;
+    this.init();
+  }
   async init() {
     this.setupImports().then(async () => {
       this.apiToken = this.apiToken || this.getApiTokenFromHash();
@@ -141,6 +148,3 @@ export class UserBirdToolbar {
 
 export default UserBirdToolbar;
 
-// Usage Docs for toolbar:
-// const toolbar = new UserBirdToolbar({ siteId, workspaceId, apiToken });
-// toolbar.init();

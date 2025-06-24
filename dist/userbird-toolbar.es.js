@@ -1,4 +1,7 @@
-const l = (i) => `<svg id="Layer_1" href="${i}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
+var c = Object.defineProperty;
+var h = (o, t, s) => t in o ? c(o, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : o[t] = s;
+var a = (o, t, s) => h(o, typeof t != "symbol" ? t + "" : t, s);
+const d = (o) => `<svg id="Layer_1" href="${o}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
   <defs>
     <style>
       .st0 {
@@ -33,7 +36,7 @@ const l = (i) => `<svg id="Layer_1" href="${i}" xmlns="http://www.w3.org/2000/sv
     <path class="st3" d="M56.84,56.84h20.48c10.76,0,19.57-8.81,19.57-19.57v-20.48l-40.05,40.05Z"/>
     <path class="st1" d="M96.89,96.87v-20.47c0-10.76-8.81-19.57-19.57-19.57h-20.48l40.05,40.04Z"/>
   </g>
-</svg>`, c = {
+</svg>`, p = {
   Domain: "userbird.com",
   Environment: "staging",
   Url: "https://www.staging-api.userbird.com",
@@ -43,12 +46,15 @@ const l = (i) => `<svg id="Layer_1" href="${i}" xmlns="http://www.w3.org/2000/sv
   LogoAlt: "UserBird Logo",
   Localhost: "http://localhost:5173"
 };
-class h {
-  constructor({ siteId: t, workspaceId: s }) {
-    this.siteId = t, this.workspaceId = s, this.logoSvg = null, this.apiToken = null, this.toolbar = null, this.logoRender = null, this.config = null;
+class u {
+  constructor() {
+    a(this, "cb", (t) => {
+      this.apiToken = t.token, this.siteId = t.siteId, this.workspaceId = t.workspaceId, this.init();
+    });
+    this.siteId = null, this.workspaceId = null, this.logoSvg = null, this.apiToken = null, this.toolbar = null, this.logoRender = null, this.config = null;
   }
   async setupImports() {
-    this.config = c, this.logoSvg = l("www." + this.Domain + "/");
+    this.config = p, this.logoSvg = d("www." + this.Domain + "/");
   }
   getApiTokenFromHash() {
     return new URLSearchParams(window.location.hash.substring(1)).get("birdAuth");
@@ -98,19 +104,20 @@ class h {
   makeDraggable() {
     this.toolbar.onmousedown = (t) => {
       t.preventDefault();
-      const s = t.clientX - this.toolbar.getBoundingClientRect().left, o = t.clientY - this.toolbar.getBoundingClientRect().top, a = (e, r) => {
-        this.toolbar.style.left = e - s + "px", this.toolbar.style.top = r - o + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
-      }, n = (e) => a(e.clientX, e.clientY);
+      const s = t.clientX - this.toolbar.getBoundingClientRect().left, i = t.clientY - this.toolbar.getBoundingClientRect().top, r = (e, l) => {
+        this.toolbar.style.left = e - s + "px", this.toolbar.style.top = l - i + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
+      }, n = (e) => r(e.clientX, e.clientY);
       document.addEventListener("mousemove", n), document.onmouseup = () => {
         document.removeEventListener("mousemove", n), document.onmouseup = null;
       };
     }, this.toolbar.ondragstart = () => !1;
   }
-  bindEvent(t, s) {
+  bindEvent(t) {
     t.addEventListener(
       "message",
-      (o) => {
-        o.origin === "http://localhost:5173" && (this.apiToken = JSON.parse(o.data).token, console.log(o.data), s(this.apiToken), o.source.postMessage({ type: "RESPONSE", text: "Authenticared!" }, o.origin));
+      (s) => {
+        const i = JSON.parse(s.data);
+        console.log(s.data), this.cb(i), s.source.postMessage({ type: "RESPONSE", text: "Authenticated!" }, s.origin);
       }
     );
   }
@@ -121,6 +128,6 @@ class h {
   }
 }
 export {
-  h as UserBirdToolbar,
-  h as default
+  u as UserBirdToolbar,
+  u as default
 };
