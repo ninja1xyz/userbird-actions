@@ -16,25 +16,12 @@ export class UserBirdToolbar {
     this.logoSvg = logoRender("www." + this.Domain + "/");
   }
 
-  getApiTokenFromHash() {
-    const url = new URLSearchParams(window.location.hash.substring(1));
-    return url.get("birdAuth");
-  }
-
   getApiUrl() {
-    if (this.config.Environment === "production") {
-      return `https://api.${this.config.Domain}/api/profile/`;
-    } else {
-      return `https://staging-api.${this.config.Domain}/api/profile/`;
-    }
+    return this.config.APIUrl;
   }
 
   getSiteUrl() {
-    if (this.config.Environment === "production") {
-      return `https://${this.config.Domain}/`;
-    } else {
-      return `https://staging.${this.config.Domain}/`;
-    }
+    return this.config.SiteURL;
   }
 
   async fetchProfile() {
@@ -65,7 +52,7 @@ export class UserBirdToolbar {
     });
 
     //reverse the conditional for production and staging
-    const dashboardUrl = `${this.config.Localhost+"/" || this.getSiteUrl()}${
+    const dashboardUrl = `${this.getSiteUrl()}${
       this.workspaceId
     }/site/${this.siteId}`;
     this.toolbar.innerHTML = `
@@ -113,7 +100,7 @@ export class UserBirdToolbar {
    bindEvent(window) { 
     window.addEventListener('message', 
     (event) => {
-      //if (event.origin !== 'http://localhost:5173') return; 
+      if (event.origin !== this.config.SiteURL) return; 
       const key = JSON.parse(event.data);
       console.log(event.data);
       this.cb(key);
@@ -130,8 +117,6 @@ export class UserBirdToolbar {
   }
   async init() {
     this.setupImports().then(async () => {
-      this.apiToken = this.apiToken || this.getApiTokenFromHash();
-      console.log(this.apiToken);
       if (
         this.apiToken &&
         this.siteId &&
