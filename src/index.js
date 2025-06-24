@@ -25,7 +25,7 @@ export class UserBirdToolbar {
   }
 
   async fetchProfile() {
-    const response = await fetch(this.getApiUrl(), {
+    const response = await fetch(`${this.getApiUrl()}/api/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -52,9 +52,7 @@ export class UserBirdToolbar {
     });
 
     //reverse the conditional for production and staging
-    const dashboardUrl = `${this.getSiteUrl()}${
-      this.workspaceId
-    }/site/${this.siteId}`;
+    const dashboardUrl = `${this.getSiteUrl()}/${this.workspaceId}/site/${this.siteId}`;
     this.toolbar.innerHTML = `
       <div style="display:flex;justify-content:space-around;align-items:center;">
         <a style="text-decoration:none;color:white;" target="_blank" rel="noopener noreferrer">
@@ -100,6 +98,7 @@ export class UserBirdToolbar {
    bindEvent(window) { 
     window.addEventListener('message', 
     (event) => {
+      console.log(event.origin, import.meta.env.VITE_SITE_URL);
       if (event.origin !== import.meta.env.VITE_SITE_URL) return; 
       const key = JSON.parse(event.data);
       console.log(event.data);

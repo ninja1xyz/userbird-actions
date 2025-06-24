@@ -1,6 +1,6 @@
 var c = Object.defineProperty;
 var h = (o, t, s) => t in o ? c(o, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : o[t] = s;
-var r = (o, t, s) => h(o, typeof t != "symbol" ? t + "" : t, s);
+var l = (o, t, s) => h(o, typeof t != "symbol" ? t + "" : t, s);
 const d = (o) => `<svg id="Layer_1" href="${o}" xmlns="http://www.w3.org/2000/svg" version="1.1" height="35" width="120" viewBox="0 0 421.39 96.87" style="margin-right: 10px;">Add commentMore actions
   <defs>
     <style>
@@ -39,10 +39,10 @@ const d = (o) => `<svg id="Layer_1" href="${o}" xmlns="http://www.w3.org/2000/sv
 </svg>`, p = {
   Domain: "userbird.com",
   Environment: "staging",
-  Url: "https://www.staging-api.userbird.com",
+  Url: "https://staging-api.userbird.com",
   LogoUrl: "https://www.userbird.com/logo.svg",
-  SiteURL: "https://www.staging.userbird.com",
-  APIUrl: "https://www.staging-api.userbird.com",
+  SiteURL: "http://localhost:5173",
+  APIUrl: "https://staging-api.userbird.com",
   LogoWidth: "24px",
   LogoHeight: "24px",
   LogoAlt: "UserBird Logo",
@@ -50,7 +50,7 @@ const d = (o) => `<svg id="Layer_1" href="${o}" xmlns="http://www.w3.org/2000/sv
 };
 class u {
   constructor() {
-    r(this, "cb", (t) => {
+    l(this, "cb", (t) => {
       this.apiToken = t.token, this.siteId = t.siteId, this.workspaceId = t.workspaceId, this.init();
     });
     this.siteId = null, this.workspaceId = null, this.logoSvg = null, this.apiToken = null, this.toolbar = null, this.logoRender = null, this.config = null;
@@ -65,7 +65,7 @@ class u {
     return this.config.SiteURL;
   }
   async fetchProfile() {
-    return (await fetch(this.getApiUrl(), {
+    return (await fetch(`${this.getApiUrl()}/api/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ class u {
       zIndex: "9999",
       cursor: "move"
     });
-    const t = `${this.getSiteUrl()}${this.workspaceId}/site/${this.siteId}`;
+    const t = `${this.getSiteUrl()}/${this.workspaceId}/site/${this.siteId}`;
     this.toolbar.innerHTML = `
       <div style="display:flex;justify-content:space-around;align-items:center;">
         <a style="text-decoration:none;color:white;" target="_blank" rel="noopener noreferrer">
@@ -103,9 +103,9 @@ class u {
   makeDraggable() {
     this.toolbar.onmousedown = (t) => {
       t.preventDefault();
-      const s = t.clientX - this.toolbar.getBoundingClientRect().left, i = t.clientY - this.toolbar.getBoundingClientRect().top, n = (e, l) => {
-        this.toolbar.style.left = e - s + "px", this.toolbar.style.top = l - i + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
-      }, a = (e) => n(e.clientX, e.clientY);
+      const s = t.clientX - this.toolbar.getBoundingClientRect().left, i = t.clientY - this.toolbar.getBoundingClientRect().top, r = (e, n) => {
+        this.toolbar.style.left = e - s + "px", this.toolbar.style.top = n - i + "px", this.toolbar.style.right = "auto", this.toolbar.style.bottom = "auto", this.toolbar.style.position = "fixed";
+      }, a = (e) => r(e.clientX, e.clientY);
       document.addEventListener("mousemove", a), document.onmouseup = () => {
         document.removeEventListener("mousemove", a), document.onmouseup = null;
       };
@@ -115,7 +115,7 @@ class u {
     t.addEventListener(
       "message",
       (s) => {
-        if (s.origin !== this.config.SiteURL) return;
+        if (console.log(s.origin, "http://localhost:5173"), s.origin !== "http://localhost:5173") return;
         const i = JSON.parse(s.data);
         console.log(s.data), this.cb(i), s.source.postMessage({ type: "RESPONSE", text: "Authenticated!" }, s.origin);
       }
