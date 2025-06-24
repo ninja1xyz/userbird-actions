@@ -100,7 +100,7 @@ export class UserBirdToolbar {
    bindEvent(window) { 
     window.addEventListener('message', 
     (event) => {
-      if (event.origin !== this.config.SiteURL) return; 
+      if (event.origin !== import.meta.env.VITE_SITE_URL) return; 
       const key = JSON.parse(event.data);
       console.log(event.data);
       this.cb(key);
